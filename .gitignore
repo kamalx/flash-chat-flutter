@@ -70,3 +70,4 @@
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # other ignores
+ios/Flutter/flutter_export_environment.sh
