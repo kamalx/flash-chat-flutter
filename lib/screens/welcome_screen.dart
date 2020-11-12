@@ -42,8 +42,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     controller.addListener(() {
       setState(() {});
-      // print('controller: ${controller.value}');
-      print('animation: ${animation.value}');
     });
   }
 
@@ -95,25 +93,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
-            ),
+            // color: Colors.lightBlueAccent,
+            RoundedButton(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
@@ -134,6 +115,50 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// () {
+//             //Go to login screen.
+//             Navigator.pushNamed(context, LoginScreen.id);
+//           }
+class RoundedButton extends StatelessWidget {
+  final Color color;
+  final String title;
+  final Function onPressed;
+  final double vpad;
+  final double radius;
+  final double width;
+  final double height;
+
+  RoundedButton({
+    this.color = Colors.red,
+    this.title = 'My Button',
+    this.onPressed,
+    this.vpad = 16.0,
+    this.radius = 30.0,
+    this.width = 200.0,
+    this.height = 42.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: vpad),
+      child: Material(
+        elevation: 5.0,
+        color: color,
+        borderRadius: BorderRadius.circular(radius),
+        child: MaterialButton(
+          onPressed: onPressed,
+          minWidth: width,
+          height: height,
+          child: Text(
+            title,
+          ),
         ),
       ),
     );
