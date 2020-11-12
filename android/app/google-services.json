@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "684554633779",
+    "firebase_url": "https://bakar-7bfe1.firebaseio.com",
+    "project_id": "bakar-7bfe1",
+    "storage_bucket": "bakar-7bfe1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684554633779:android:810de968ae2e4ed4511946",
+        "android_client_info": {
+          "package_name": "xyz.mulberries.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684554633779-jkm7dt0i2v8g60qq2dcksgjjkn5n2eti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "keY-G0eS-hEre"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684554633779-jkm7dt0i2v8g60qq2dcksgjjkn5n2eti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
