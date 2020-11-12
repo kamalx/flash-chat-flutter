@@ -71,3 +71,12 @@
 
 # other ignores
 ios/Flutter/flutter_export_environment.sh
+.flutter-plugins-dependencies
+.gradle/6.1.1/gc.properties
+.gradle/6.1.1/executionHistory/executionHistory.lock
+.gradle/6.1.1/fileChanges/last-build.bin
+.gradle/6.1.1/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/cache.properties
+.gradle/checksums/checksums.lock
+.gradle/vcs-1/gc.properties
