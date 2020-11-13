@@ -58,5 +58,7 @@ flutter {
 
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
-    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    // implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    // NO LONGER REQUIRED ACCORDING TO THIS MIGRATION GUIDE:
+    // https://firebase.flutter.dev/docs/migration/
 }
