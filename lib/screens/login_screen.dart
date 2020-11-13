@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart' as FireAuth;
 import 'package:flash_chat/components/rounded_button.dart';
 import 'package:flash_chat/constants.dart';
+import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FireAuth.FirebaseAuth.instance;
   String email, password;
 
   @override
@@ -63,8 +66,23 @@ class _LoginScreenState extends State<LoginScreen> {
             RoundedButton(
               color: Colors.lightBlueAccent,
               title: 'Log In',
-              onPressed: () {
-                //Implement login functionality.
+              onPressed: () async {
+                try {
+                  var session = await _auth.signInWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+                  if (session != null) {
+                    print(session);
+                    // navigate to the chat screen
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } on FireAuth.FirebaseAuthException catch (e) {
+                  if (e.code == 'wrong-password') {
+                    print('\n\nbad password!\n\n');
+                  }
+                  print('Error occurred during signin: $e');
+                }
               },
             ),
           ],
