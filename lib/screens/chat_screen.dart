@@ -35,10 +35,11 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> getMessages() async {
-    final messages = await _firestore.collection('messages').get();
-    for (var message in messages.documents) {
-      print(message.data);
+  void messageStream() async {
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
     }
   }
 
@@ -59,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 // }
 
                 ///////////// temporary stuff for debugging
-                getMessages();
+                messageStream();
               }),
         ],
         title: Text('⚡️Chat'),
