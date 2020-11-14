@@ -91,8 +91,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   messageWidgets.add(msgWidget);
                 }
 
-                return Column(
-                  children: messageWidgets,
+                return Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.all(10.0),
+                    children: messageWidgets,
+                  ),
                 );
               },
             ),
