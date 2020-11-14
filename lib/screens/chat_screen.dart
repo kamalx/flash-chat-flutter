@@ -36,13 +36,13 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void messageStream() async {
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
-    }
-  }
+  // void messageStream() async {
+  //   await for (var snapshot in _firestore.collection('messages').snapshots()) {
+  //     for (var message in snapshot.docs) {
+  //       print(message.data());
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +53,12 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                // try {
-                //   _auth.signOut();
-                //   Navigator.pop(context);
-                // } catch (e) {
-                //   print('something went wrong, we could not log user out: $e');
-                // }
-
-                ///////////// temporary stuff for debugging
-                messageStream();
+                try {
+                  _auth.signOut();
+                  Navigator.pop(context);
+                } catch (e) {
+                  print('something went wrong, we could not log user out: $e');
+                }
               }),
         ],
         title: Text('⚡️Chat'),
