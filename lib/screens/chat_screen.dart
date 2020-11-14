@@ -161,7 +161,12 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Material(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0),
+              topRight: Radius.circular(0.0),
+            ),
             elevation: 5.0,
             color: Colors.lightBlueAccent,
             child: Padding(
