@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flash_chat/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth;
@@ -56,7 +57,10 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 try {
                   _auth.signOut();
-                  Navigator.pop(context);
+                  Navigator.popUntil(
+                    context,
+                    ModalRoute.withName(WelcomeScreen.id),
+                  );
                 } catch (e) {
                   print('something went wrong, we could not log user out: $e');
                 }
