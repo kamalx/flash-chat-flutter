@@ -127,7 +127,7 @@ class MessageStream extends StatelessWidget {
           );
         }
         final messages = snapshotContainer
-            .data.docs.reversed; // snapshopContainer.data is a QuerySnapshot
+            .data.docs; // snapshopContainer.data is a QuerySnapshot
         // final howManyMessages = messages.length;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
@@ -145,7 +145,7 @@ class MessageStream extends StatelessWidget {
 
         return Expanded(
           child: ListView(
-            reverse: true,
+            // reverse: true,
             padding: EdgeInsets.all(10.0),
             children: messageBubbles,
           ),
