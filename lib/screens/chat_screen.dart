@@ -93,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
-                        'time': Timestamp.now(),
+                        'time': FieldValue.serverTimestamp(),
                       });
                     },
                     child: Text(
@@ -126,8 +126,8 @@ class MessageStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshotContainer
-            .data.docs.reversed; // snapshopContainer.data is a QuerySnapshot
+        final messages = snapshotContainer.data.docs.reversed;
+        // snapshopContainer.data is a QuerySnapshot
         // final howManyMessages = messages.length;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
