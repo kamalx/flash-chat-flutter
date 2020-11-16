@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' as FireAuth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/screens/welcome_screen.dart';
@@ -12,10 +13,13 @@ Future<void> main() async {
 }
 
 class FlashChat extends StatelessWidget {
+  final _auth = FireAuth.FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute:
+          (_auth.currentUser != null) ? ChatScreen.id : WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
