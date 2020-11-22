@@ -60,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.lightBlue.shade800,
       ),
       body: SafeArea(
         child: Column(
@@ -126,7 +126,7 @@ class MessageStream extends StatelessWidget {
           return Expanded(
             child: Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+                backgroundColor: Colors.lightBlue.shade800,
               ),
             ),
           );
@@ -182,14 +182,14 @@ class MessageBubble extends StatelessWidget {
         DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch);
 
     var shape1 = BorderRadius.only(
-      bottomLeft: Radius.circular(30.0),
+      bottomLeft: Radius.circular(10.0),
       bottomRight: Radius.circular(30.0),
       topRight: Radius.circular(30.0),
     );
     var shape2 = BorderRadius.only(
-      topLeft: Radius.circular(30.0),
       bottomLeft: Radius.circular(30.0),
-      bottomRight: Radius.circular(30.0),
+      bottomRight: Radius.circular(10.0),
+      topLeft: Radius.circular(30.0),
     );
     return Padding(
       padding: const EdgeInsets.all(1.0),
@@ -200,7 +200,7 @@ class MessageBubble extends StatelessWidget {
           Material(
             borderRadius: isMe ? shape2 : shape1,
             elevation: 1.0,
-            color: isMe ? Colors.green : Colors.black12,
+            color: isMe ? Colors.lightBlue.shade800 : Colors.black12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
