@@ -176,33 +176,35 @@ class MessageBubble extends StatelessWidget {
       bottomRight: Radius.circular(30.0),
     );
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(2.0),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Material(
             borderRadius: isMe ? shape2 : shape1,
-            elevation: 2.0,
-            color: isMe ? Colors.lightBlueAccent : Colors.lightBlue.shade100,
+            elevation: 1.0,
+            color: isMe ? Colors.green : Colors.black12,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 text,
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: isMe ? Colors.white : Colors.black54,
+                  color: isMe ? Colors.white : Colors.black,
                 ),
               ),
             ),
           ),
-          Text(
-            sender,
-            style: TextStyle(
-              color: Colors.grey,
-              fontFamily: 'monospace',
-            ),
-          ),
+          isMe
+              ? SizedBox(height: 0)
+              : Text(
+                  sender,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: 'monospace',
+                  ),
+                ),
         ],
       ),
     );
