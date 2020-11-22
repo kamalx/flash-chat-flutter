@@ -43,9 +43,10 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: null,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.close),
+              icon: Icon(Icons.logout),
               onPressed: () {
                 try {
                   _auth.signOut();
@@ -59,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.lightBlue.shade800,
       ),
       body: SafeArea(
         child: Column(
@@ -83,19 +84,27 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      msgTextController.clear();
-                      // [messageText] + [loggedInUser.email]
-                      _firestore.collection('messages').add({
-                        'text': messageText,
-                        'sender': loggedInUser.email,
-                        'time': FieldValue.serverTimestamp(),
-                      });
-                    },
                     child: Text(
                       'Send',
                       style: kSendButtonTextStyle,
                     ),
+                    onPressed: () {
+                      msgTextController.clear();
+                      // [messageText] + [loggedInUser.email]
+                      if (messageText != null && messageText.isNotEmpty) {
+                        var ref = _firestore.collection('messages').add({
+                          'text': messageText ?? ' ', // paranoia?
+                          'sender': loggedInUser.email ?? 'anonymous',
+                          'time': Timestamp.now(), // depends on cloud_firestore
+                        });
+                        ref.then((value) {
+                          messageText = null;
+                          print('collection.add => $value');
+                        });
+                      } else {
+                        // FIXME: disable send button
+                      }
+                    },
                   ),
                 ],
               ),
@@ -117,7 +126,7 @@ class MessageStream extends StatelessWidget {
           return Expanded(
             child: Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+                backgroundColor: Colors.lightBlue.shade800,
               ),
             ),
           );
@@ -127,13 +136,16 @@ class MessageStream extends StatelessWidget {
         // final howManyMessages = messages.length;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
-          final msgText = message.data()['text'] ?? '[empty message]';
+          final msgText = message.data()['text'] ??
+              '[empty message]'; // this cannot happen! :P
           final msgSender = message.data()['sender'];
+          final timestamp = message.data()['time'];
           final currentUser = loggedInUser.email;
 
           final msgBubble = MessageBubble(
             text: msgText,
             sender: msgSender,
+            time: timestamp,
             isMe: currentUser == msgSender,
           );
           messageBubbles.add(msgBubble);
@@ -155,53 +167,82 @@ class MessageBubble extends StatelessWidget {
   const MessageBubble({
     @required this.text,
     @required this.sender,
+    @required this.time,
     this.isMe,
   });
 
   final String text;
   final String sender;
+  final time;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
+    DateTime timestamp =
+        DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch);
+
     var shape1 = BorderRadius.only(
-      bottomLeft: Radius.circular(30.0),
+      bottomLeft: Radius.circular(10.0),
       bottomRight: Radius.circular(30.0),
       topRight: Radius.circular(30.0),
     );
     var shape2 = BorderRadius.only(
-      topLeft: Radius.circular(30.0),
       bottomLeft: Radius.circular(30.0),
-      bottomRight: Radius.circular(30.0),
+      bottomRight: Radius.circular(10.0),
+      topLeft: Radius.circular(30.0),
     );
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(1.0),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Material(
             borderRadius: isMe ? shape2 : shape1,
-            elevation: 2.0,
-            color: isMe ? Colors.lightBlueAccent : Colors.lightBlue.shade100,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: isMe ? Colors.white : Colors.black54,
+            elevation: 1.0,
+            color: isMe ? Colors.lightBlue.shade800 : Colors.black12,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10.0,
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: isMe ? Colors.white : Colors.black,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 8.0, right: 20.0, left: 20.0, top: 4.0),
+                  child: Text(
+                    '${timestamp.hour}:${timestamp.minute}',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: Colors.white60,
+                      fontSize: 11.0,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          Text(
-            sender,
-            style: TextStyle(
-              color: Colors.grey,
-              fontFamily: 'monospace',
-            ),
-          ),
+          isMe
+              ? SizedBox(height: 0)
+              : Text(
+                  sender,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: 'monospace',
+                  ),
+                ),
         ],
       ),
     );
