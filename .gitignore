@@ -80,3 +80,4 @@ ios/Flutter/flutter_export_environment.sh
 .gradle/buildOutputCleanup/cache.properties
 .gradle/checksums/checksums.lock
 .gradle/vcs-1/gc.properties
+firebase-rules.txt
