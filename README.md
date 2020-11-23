@@ -26,7 +26,7 @@ A global chatroom for all my friend-circles brought together anonymously 🔯
 - ListViews to build scrolling views
 - Firebase Could Firestore to store and retrieve data
 
-![Finished App](https://github.com/londonappbrewery/Images/blob/master/flash_chat_flutter_demo.gif)
-
+![Login](https://github.com/kamalx/images/blob/main/FlashChat1.gif)
+![Chat Screen](https://github.com/kamalx/images/blob/main/FlashChat2.gif)
 
 >This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
