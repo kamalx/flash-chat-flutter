@@ -1,6 +1,14 @@
 # Flash Chat ⚡️
 
-A modern messaging app with email based sign in/registration.
+A global chatroom for all my friend-circles brought together anonymously 🔯
+
+## Contributions
+
+- everyone who tries FlashChat is a contributor 🌟
+- we're grateful for your bug reports and complaints 🙏
+- your PRs are always welcome (kindly excuse us if it
+  takes us a while to review or if there are questions
+  and concerns preventing its merging).
 
 ## backend tools
 
