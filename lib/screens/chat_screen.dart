@@ -222,7 +222,7 @@ class MessageBubble extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       bottom: 8.0, right: 20.0, left: 20.0, top: 4.0),
                   child: Text(
-                    '${timestamp.hour}:${timestamp.minute}',
+                    '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}',
                     textAlign: TextAlign.end,
                     style: TextStyle(
                       color: Colors.white60,
